@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.neuedu.lishuailong.skilltrain.mapper.StudyRecordMapper">
+
+    <select id="getStudyRecordByPage" resultType="com.neuedu.lishuailong.skilltrain.model.StudyRecordQuery" parameterType="com.neuedu.lishuailong.skilltrain.model.StudyRecordQuery">
+        select
+        t2.course_name, t3.chapter_name, t4.mission_title, t5.real_name, t1.study_state, t1.study_start_time, t1.study_end_time
+        from
+        (select user_id, mission_id, study_state, study_start_time, study_end_time from study_record) as t1,
+        (select course_id, course_name from course) as t2,
+        (select chapter_id, chapter_name from chapter) as t3,
+        (select mission_id, chapter_id, course_id, mission_title from lesson_mission) as t4,
+        (select user_id, real_name from `user`) as t5
+        <where>
+            <if test="realName != null and realName != ''">
+                t5.real_name = #{realName}
+            </if>
+            <choose>
+                <when test="realName != null and realName != ''">
+                    and t1.mission_id = t4.mission_id
+                </when>
+                <otherwise>
+                    t1.mission_id = t4.mission_id
+                </otherwise>
+            </choose>
+            and t4.course_id = t2.course_id
+            and t4.chapter_id= t3.chapter_id
+            and t1.user_id = t5.user_id
+            <if test="studyStartTime != null and studyStartTime != ''">
+                and t1.study_start_time &gt;= #{studyStartTime}
+            </if>
+            <if test="studyEndTime != null and studyEndTime != ''">
+                and t1.study_end_time &lt;= #{studyEndTime}
+            </if>
+            <if test="courseName != null and courseName != ''">
+                and t2.course_name = #{courseName}
+            </if>
+            <if test="chapterName != null and chapterName != ''">
+                and t3.chapter_name = #{chapterName}
+            </if>
+            <if test="missionTitle != null and missionTitle != ''">
+                and t4.mission_title = #{missionTitle}
+            </if>
+            <if test="studyState != null and studyState != ''">
+                and t1.study_state = #{studyState}
+            </if>
+        </where>
+<!--        limit-->
+<!--        <choose>-->
+<!--            <when test="_parameter.getNo() > 1">-->
+<!--                <bind name="pageNumber" value="(_parameter.getNo() - 1) * _parameter.getSize()"/>-->
+<!--                #{pageNumber}, #{size}-->
+<!--            </when>-->
+<!--            <otherwise>-->
+<!--                0, #{size}-->
+<!--            </otherwise>-->
+<!--        </choose>-->
+    </select>
+</mapper>

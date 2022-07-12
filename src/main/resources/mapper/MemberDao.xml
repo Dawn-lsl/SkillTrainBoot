@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.neuedu.lishuailong.skilltrain.mapper.MemberDao">
+<!--    <insert id="saveMember">-->
+<!--        insert into-->
+<!--        member(id, name, address, phone, sex, create_user, create_time, update_user, update_time)-->
+<!--        value (#{m.id},#{m.name},#{m.address},#{m.phone},#{m.sex},#{m.create_user},#{m.create_time},#{m.update_user},#{m.update_time})-->
+<!--    </insert>-->
+<!--    <update id="updateById">-->
+<!--        update member-->
+<!--        set name=#{m.name},address=#{m.address},phone=#{m.phone},sex=#{m.sex}-->
+<!--        ,create_user=#{m.create_user},create_time=#{m.create_time}-->
+<!--        ,update_user=#{m.update_user},update_time=#{m.update_time}-->
+<!--        WHERE id= #{m.id};-->
+<!--    </update>-->
+<!--    <delete id="removeById">-->
+<!--        delete from member-->
+<!--        where id = #{id}-->
+<!--    </delete>-->
+<!--    <select id="getMemberById" resultType="com.neuedu.lishuailong.skilltrain.model.Member">-->
+<!--        select *-->
+<!--        from member-->
+<!--        where id = #{id};-->
+<!--    </select>-->
+</mapper>

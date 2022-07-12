@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.neuedu.lishuailong.skilltrain.mapper.UserMapper">
+
+    <select id="getUserByPage" resultType="com.neuedu.lishuailong.skilltrain.model.UserQuery" parameterType="com.neuedu.lishuailong.skilltrain.model.UserQuery">
+        select
+        t1.*,t2.department_name
+        from
+        (select * from `user`) as t1,
+        (select department_id, department_name from department) as t2
+        <where>
+            t1.department_id = t2.department_id
+            <if test="mobile != null and mobile != ''">
+                and t1.mobile = #{mobile}
+            </if>
+            <if test="userName != null and userName != ''">
+                and t1.user_name = #{userName}
+            </if>
+            <if test="state != null">
+                and t1.state = #{state}
+            </if>
+        </where>
+    </select>
+</mapper>
